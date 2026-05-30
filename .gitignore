@@ -1,0 +1,20 @@
+# Data & products — regenerable, never commit
+data/
+resources/
+results/
+logs/
+*.bam
+*.bai
+*.vcf
+*.vcf.gz
+*.fastq
+*.fastq.gz
+*.fa
+*.fasta
+*.fai
+*.dict
+
+# Conda / Snakemake cruft
+.snakemake/
+__pycache__/
+*.pyc

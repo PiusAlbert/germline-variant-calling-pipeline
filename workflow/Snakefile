@@ -1,0 +1,11 @@
+configfile: "config/config.yaml"
+
+SAMPLES = config["samples"]
+
+# Rules get included here as we build each stage:
+# include: "rules/qc.smk"
+# include: "rules/align.smk"
+
+rule all:
+    input:
+        []   # populated as stages come online

@@ -1,0 +1,21 @@
+# Sample sheet: name -> paired FASTQ
+samples:
+  NA12878:
+    r1: data/NA12878_R1.fastq.gz
+    r2: data/NA12878_R2.fastq.gz
+
+reference: resources/reference.fasta
+
+# Human = diploid. Drives HaplotypeCaller --sample-ploidy.
+ploidy: 2
+
+# Known-sites for BQSR (exist for human, unlike most bacteria)
+known_sites:
+  - resources/dbsnp.vcf.gz
+  - resources/mills_indels.vcf.gz
+
+# GIAB high-confidence truth set for benchmarking
+truth_vcf: resources/giab_truth.vcf.gz
+truth_bed: resources/giab_highconf.bed
+
+threads: 4
