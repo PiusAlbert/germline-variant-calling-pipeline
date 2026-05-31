@@ -6,6 +6,7 @@ include: "rules/simulate.smk"
 include: "rules/qc.smk"
 include: "rules/align.smk"
 include: "rules/dedup.smk"
+include: "rules/bqsr.smk"
 
 rule all:
     input:
@@ -17,7 +18,9 @@ rule all:
         "results/qc/multiqc/multiqc_report.html",
         "results/aligned/NA12878_sim.sorted.bam",
         "results/aligned/NA12878_sim.sorted.bam.bai",
-        # stage 3: mark duplicates
         "results/dedup/NA12878_sim.dedup.bam",
         "results/dedup/NA12878_sim.dedup.bam.bai",
         "results/dedup/NA12878_sim.dedup.metrics.txt",
+        # stage 4: BQSR
+        "results/bqsr/NA12878_sim.recal.bam",
+        "results/bqsr/NA12878_sim.recal.bam.bai",

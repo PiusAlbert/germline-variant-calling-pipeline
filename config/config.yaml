@@ -13,7 +13,7 @@ ploidy: 2
 known_sites:
   - resources/dbsnp.vcf.gz
   - resources/mills_indels.vcf.gz
-
+  - resources/sim_truth.chr20.vcf.gz
 # GIAB high-confidence truth set for benchmarking
 truth_vcf: resources/giab_truth.vcf.gz
 truth_bed: resources/giab_highconf.bed
