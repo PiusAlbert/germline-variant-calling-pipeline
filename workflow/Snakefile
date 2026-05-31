@@ -5,6 +5,7 @@ SAMPLES = config["samples"]
 include: "rules/simulate.smk"
 include: "rules/qc.smk"
 include: "rules/align.smk"
+include: "rules/dedup.smk"
 
 rule all:
     input:
@@ -14,6 +15,9 @@ rule all:
         "results/qc/fastqc_raw/NA12878_sim.bwa.read1_fastqc.html",
         "results/qc/fastqc_raw/NA12878_sim.bwa.read2_fastqc.html",
         "results/qc/multiqc/multiqc_report.html",
-        # stage 2: alignment
         "results/aligned/NA12878_sim.sorted.bam",
         "results/aligned/NA12878_sim.sorted.bam.bai",
+        # stage 3: mark duplicates
+        "results/dedup/NA12878_sim.dedup.bam",
+        "results/dedup/NA12878_sim.dedup.bam.bai",
+        "results/dedup/NA12878_sim.dedup.metrics.txt",
