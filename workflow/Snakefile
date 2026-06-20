@@ -7,6 +7,7 @@ include: "rules/qc.smk"
 include: "rules/align.smk"
 include: "rules/dedup.smk"
 include: "rules/bqsr.smk"
+include: "rules/call.smk"
 
 rule all:
     input:
@@ -21,6 +22,8 @@ rule all:
         "results/dedup/NA12878_sim.dedup.bam",
         "results/dedup/NA12878_sim.dedup.bam.bai",
         "results/dedup/NA12878_sim.dedup.metrics.txt",
-        # stage 4: BQSR
         "results/bqsr/NA12878_sim.recal.bam",
         "results/bqsr/NA12878_sim.recal.bam.bai",
+        # stage 5: variant calling
+        "results/called/NA12878_sim.raw.vcf.gz",
+        "results/called/NA12878_sim.raw.vcf.gz.tbi",
