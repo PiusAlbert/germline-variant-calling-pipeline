@@ -1,21 +1,27 @@
-# Sample sheet: name -> paired FASTQ
-samples:
-  NA12878:
-    r1: data/NA12878_R1.fastq.gz
-    r2: data/NA12878_R2.fastq.gz
+# Sample sheet: sample name -> paired FASTQ + read-group metadata
+sample: NA12878_real
+
+reads:
+  r1: data/NA12878_real.R1.fastq.gz
+  r2: data/NA12878_real.R2.fastq.gz
+
+# Read-group metadata (SM becomes the VCF sample column)
+readgroup:
+  id: NA12878_real
+  sm: NA12878
+  pl: ILLUMINA
+  lb: lib1
+  pu: unit1
 
 reference: resources/reference.fasta
 
-# Human = diploid. Drives HaplotypeCaller --sample-ploidy.
 ploidy: 2
 
-# Known-sites for BQSR (exist for human, unlike most bacteria)
 known_sites:
-  - resources/dbsnp.vcf.gz
-  - resources/mills_indels.vcf.gz
-  - resources/sim_truth.chr20.vcf.gz
-# GIAB high-confidence truth set for benchmarking
-truth_vcf: resources/giab_truth.vcf.gz
-truth_bed: resources/giab_highconf.bed
+  - resources/dbsnp.chr20.vcf.gz
+  - resources/mills_indels.chr20.vcf.gz
+
+truth_vcf: resources/giab_truth.chr20.vcf.gz
+truth_bed: resources/giab_highconf.chr20.bed
 
 threads: 4

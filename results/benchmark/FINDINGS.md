@@ -26,3 +26,18 @@ recall. Standard best-practice filters are context-dependent, not universal.
 On real Illumina reads, FPs will carry genuine artifact signatures and the
 GATK hard-filters will separate populations as designed. Filtering becomes
 meaningful only with realistic error structure.
+
+## Path B — MarkDuplicates on downsampled real data
+PERCENT_DUPLICATION = 0.095% (near-zero, comparable to simulated data).
+
+NOT because NA12878 lacks PCR duplicates — because the data acquisition
+destroyed detectable duplicate structure:
+- Started from GIAB's 300x aligned BAM, streamed chr20, downsampled with `-s 0.1`.
+- Downsampling independently drops each read, so both copies of a duplicate
+  pair surviving has probability ~0.1 x 0.1 = ~1%. Duplicate pairs are shattered.
+- Result: MarkDuplicates correctly finds ~no duplicates in the DOWNSAMPLED subset.
+
+Lesson: real-data metrics are contingent on upstream provenance. A duplication
+rate reflects the processing history of the reads, not just the biology.
+Reading 0.095% as "NA12878 has no duplicates" would be wrong — the correct
+reading is "no detectable duplicates survive 10% downsampling."

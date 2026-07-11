@@ -1,13 +1,13 @@
 rule mark_duplicates:
     input:
-        bam="results/aligned/NA12878_sim.sorted.bam",
-        bai="results/aligned/NA12878_sim.sorted.bam.bai",
+        bam=f"results/aligned/{SAMPLE}.sorted.bam",
+        bai=f"results/aligned/{SAMPLE}.sorted.bam.bai",
     output:
-        bam="results/dedup/NA12878_sim.dedup.bam",
-        bai="results/dedup/NA12878_sim.dedup.bam.bai",
-        metrics="results/dedup/NA12878_sim.dedup.metrics.txt",
+        bam=f"results/dedup/{SAMPLE}.dedup.bam",
+        bai=f"results/dedup/{SAMPLE}.dedup.bam.bai",
+        metrics=f"results/dedup/{SAMPLE}.dedup.metrics.txt",
     log:
-        "logs/mark_duplicates.log",
+        f"logs/mark_duplicates.{SAMPLE}.log",
     shell:
         "gatk MarkDuplicates "
         "-I {input.bam} "
@@ -15,4 +15,4 @@ rule mark_duplicates:
         "-M {output.metrics} "
         "--CREATE_INDEX true "
         "> {log} 2>&1 && "
-        "mv results/dedup/NA12878_sim.dedup.bai {output.bai}"
+        f"mv results/dedup/{SAMPLE}.dedup.bai {{output.bai}}"

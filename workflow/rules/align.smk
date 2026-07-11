@@ -1,16 +1,24 @@
+SAMPLE = config["sample"]
+
 rule bwa_map:
     input:
-        ref="resources/reference.fasta",
-        idx=multiext("resources/reference.fasta", ".amb", ".ann", ".bwt", ".pac", ".sa"),
-        r1="data/NA12878_sim.bwa.read1.fastq.gz",
-        r2="data/NA12878_sim.bwa.read2.fastq.gz",
+        ref=config["reference"],
+        idx=multiext(config["reference"], ".amb", ".ann", ".bwt", ".pac", ".sa"),
+        r1=config["reads"]["r1"],
+        r2=config["reads"]["r2"],
     output:
-        bam="results/aligned/NA12878_sim.sorted.bam",
-        bai="results/aligned/NA12878_sim.sorted.bam.bai",
+        bam=f"results/aligned/{SAMPLE}.sorted.bam",
+        bai=f"results/aligned/{SAMPLE}.sorted.bam.bai",
     params:
-        rg=r"@RG\tID:NA12878_sim\tSM:NA12878\tPL:ILLUMINA\tLB:lib1\tPU:unit1",
+        rg=r"@RG\tID:{id}\tSM:{sm}\tPL:{pl}\tLB:{lb}\tPU:{pu}".format(
+            id=config["readgroup"]["id"],
+            sm=config["readgroup"]["sm"],
+            pl=config["readgroup"]["pl"],
+            lb=config["readgroup"]["lb"],
+            pu=config["readgroup"]["pu"],
+        ),
     log:
-        "logs/bwa_map.log",
+        f"logs/bwa_map.{SAMPLE}.log",
     threads: config["threads"]
     shell:
         "(bwa mem -t {threads} -R '{params.rg}' {input.ref} {input.r1} {input.r2} "

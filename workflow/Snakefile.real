@@ -1,0 +1,14 @@
+configfile: "config/config.yaml"
+
+SAMPLE = config["sample"]
+
+# Path B, incremental — stages added as they're parameterized.
+include: "rules/align.smk"
+include: "rules/dedup.smk"
+
+rule all:
+    input:
+        f"results/aligned/{SAMPLE}.sorted.bam",
+        f"results/dedup/{SAMPLE}.dedup.bam",
+        f"results/dedup/{SAMPLE}.dedup.bam.bai",
+        f"results/dedup/{SAMPLE}.dedup.metrics.txt",
